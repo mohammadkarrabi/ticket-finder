@@ -31,7 +31,8 @@ class LLMParser:
         response = self.client.chat.completions.create(
                 model=self.model,
                 messages=messages,
-                temperature=0
+                temperature=0,
+                response_format={"type": "json_object"}
             )
         response_message = response.choices[0].message.content
         return response_message
