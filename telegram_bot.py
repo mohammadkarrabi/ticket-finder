@@ -52,7 +52,13 @@ def message_handler(update, context):
             user2config[str(update.effective_chat.id)] = {}
             user2config[str(update.effective_chat.id)]['query'] = query_dict
             user2config[str(update.effective_chat.id)]['request_time'] = str(time.time())
-            context.bot.send_message(chat_id=update.effective_chat.id, text=f"your request parsed as follow :\n {str(resp)}\n\n if its wrong try again with more clear query")
+            response_message = f"""
+                Your request has been submitted, and every `10 seconds` the `Qasedak` website will check for the ticket you are looking for. 
+                
+                \n\n {str(resp)}\n
+                If your request conflicts with the following information, please try again with a clearer message. Thank you.
+            """
+            context.bot.send_message(chat_id=update.effective_chat.id, text=response_message)
             with open(USER2CONFIG_ADDR, 'w') as f:
                 json.dump(user2config, f)
         except Exception as e:
