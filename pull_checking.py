@@ -6,7 +6,11 @@ import os
 import time
 import json
 import pandas as pd
+from dotenv import load_dotenv
 
+load_dotenv()
+
+BOT_TOKEN = os.getenv('BOT_TOKEN')
 logger = colorlog.getLogger()
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter(
@@ -19,7 +23,6 @@ logger.addHandler(file_handler)
 
 # Use the logger to create some logs
 
-API_TOKEN = '7463830485:AAHDR-5A6ayjel9i5XzDNwUUjCiQMAk4zJg'
 CHAT_IDS_FILE = 'chat_ids.txt'
 CITY_CODE_ADDR = 'city2code.csv'
 city_code_df = pd.read_csv(CITY_CODE_ADDR)
@@ -52,16 +55,6 @@ class TicketProvider:
         self.base_url = 'https://ghasedak24.com/search/search_train'
     
     def check_api(self, data, callback, callback_params, update_times, user_id):
-        # data = {
-        #     'route': 'mashhad-tehran',
-        #     'car_transport': '0',
-        #     'date': '1403-03-13',
-        #     'return_date': '',
-        #     'count': '2',
-        #     'type': '0',
-        #     'coupe': '0',
-        #     'filter': '0',
-        # }
         key2fa = {
             "from_title": 'از',
             "to_title": 'به',
@@ -106,7 +99,7 @@ def send_message(message, query, ch_id):
     }
 
     response = requests.post(
-        'https://api.telegram.org/bot' + API_TOKEN + '/sendMessage',
+        'https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage',
         headers=headers,
         json=json_data,
     )
@@ -116,11 +109,13 @@ def send_message(message, query, ch_id):
 
 if __name__ == '__main__':
     USER2CONFIG_ADDR = './user2config.json'
+    APP_CONFIG_ADDR = './app_config.json'
     head_cook_addr = './ghasedak_config.json'
     DELAY = 10
     update_times = {}
     user2log = {}
     user_id2config = json.load(open(USER2CONFIG_ADDR, 'r'))
+    app_config = json.load(open(APP_CONFIG_ADDR, 'r'))
     ticket_provider = TicketProvider(head_cook_addr)
     while True:
         for user_id in valid_chat_ids:
@@ -132,6 +127,6 @@ if __name__ == '__main__':
                 callback_params = {"ch_id":user_id}
                 callback_params['query'] = data
                 ticket_provider.check_api(data, send_message, callback_params, update_times, user_id)
-        time.sleep(DELAY)
+        time.sleep(app_config['delay'])
         user_id2config = json.load(open(USER2CONFIG_ADDR, 'r'))
         

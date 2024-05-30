@@ -57,7 +57,7 @@ def message_handler(update, context):
                 
             \n\n {str(resp)}\n
             If your request conflicts with this information, please try more clear query. Thanks.
-            
+
             """
             context.bot.send_message(chat_id=update.effective_chat.id, text=response_message)
             with open(USER2CONFIG_ADDR, 'w') as f:
@@ -69,6 +69,7 @@ def message_handler(update, context):
 def start(update, contextLLMParser):
     logger.info(f'start() for chat id : {str(update.effective_chat.id)}')
     context.bot.send_message(chat_id=update.effective_chat.id, text="send me your ticket request in Persian!")
+
 
 def main():
     updater = Updater(token=BOT_TOKEN, use_context=True)
