@@ -53,10 +53,11 @@ def message_handler(update, context):
             user2config[str(update.effective_chat.id)]['query'] = query_dict
             user2config[str(update.effective_chat.id)]['request_time'] = str(time.time())
             response_message = f"""
-                Your request has been submitted, and every `10 seconds` the `Qasedak` website will check for the ticket you are looking for. 
+            Your request has been submitted, and every 10 seconds the Qasedak website will check for the ticket you are looking for. 
                 
-                \n\n {str(resp)}\n
-                If your request conflicts with the following information, please try again with a clearer message. Thank you.
+            \n\n {str(resp)}\n
+            If your request conflicts with this information, please try more clear query. Thanks.
+            
             """
             context.bot.send_message(chat_id=update.effective_chat.id, text=response_message)
             with open(USER2CONFIG_ADDR, 'w') as f:
