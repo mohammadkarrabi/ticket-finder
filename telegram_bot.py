@@ -3,7 +3,7 @@ import time
 import json
 import colorlog
 import logging
-from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
+from telegram.ext import Updater, MessageHandler, filters, CommandHandler
 from dotenv import load_dotenv
 from llm import LLMParser
 
@@ -67,7 +67,7 @@ def main():
     updater = Updater(token=BOT_TOKEN, use_context=True)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('start', start))
-    dp.add_handler(MessageHandler(Filters.text & (~Filters.command), message_handler))
+    dp.add_handler(MessageHandler(filters.text & (~filters.command), message_handler))
     updater.start_polling()
     updater.idle()
 
