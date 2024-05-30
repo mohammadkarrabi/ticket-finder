@@ -1,0 +1,11 @@
+"""today date is : {today_date}
+ please extract requested ticket information in json format
+your output should be in following format and has route, date and count keys:
+    
+        'route': 'source-destination',  #example: mashhad-tehran (both city name must be in English)
+        'date': 'year-month-day', # requested ticket date for example: 1403-07-12
+        'count':   #passenger_count
+         
+if value of a key not mentioned, its value should be n/a
+{query}
+"""
