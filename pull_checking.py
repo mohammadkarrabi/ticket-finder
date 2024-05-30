@@ -117,7 +117,11 @@ if __name__ == '__main__':
     user_id2config = json.load(open(USER2CONFIG_ADDR, 'r'))
     app_config = json.load(open(APP_CONFIG_ADDR, 'r'))
     ticket_provider = TicketProvider(head_cook_addr)
+    start_time = time.time()
+    duration = app_config['duration']
     while True:
+        if time.time() - start_time >= duration:
+            break
         for user_id in valid_chat_ids:
             if user_id not in user_id2config:
                 continue
