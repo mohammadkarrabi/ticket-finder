@@ -132,7 +132,6 @@ if __name__ == '__main__':
                 callback_params = {"ch_id":user_id}
                 callback_params['query'] = data
                 ticket_provider.check_api(data, send_message, callback_params, update_times, user_id)
-                user2log[user_id]
         time.sleep(DELAY)
         user_id2config = json.load(open(USER2CONFIG_ADDR, 'r'))
         
