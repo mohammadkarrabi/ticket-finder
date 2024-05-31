@@ -63,7 +63,7 @@ class TicketProvider:
             "time_of_arrival": 'ساعت ورود',
             "wagon_name": 'نوع قطار',
             "cost_title": 'قیمت',
-            "compartment_capacity": 'ظرفیت خالی'
+            "counting_en": 'ظرفیت خالی'
         }
         passenger_count = int(data['count'])
         response = requests.post(f'{self.base_url}', cookies=self.cookies, headers=self.headers, data=data) 
