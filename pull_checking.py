@@ -68,7 +68,7 @@ class TicketProvider:
         passenger_count = int(data['count'])
         response = requests.post(f'{self.base_url}', cookies=self.cookies, headers=self.headers, data=data) 
         data_list = response.json()['data']['data']['departure']
-        if any(item['counting_en'] >= passenger_count for item in data_list):
+        if any(item['counting_en'] >= passenger_count and 'اتوبوس' not in item['wagon_name'] for item in data_list):
             logger.info(f'request for user id {user_id} found!!')
             out_message = [pprint.pformat({key2fa[key]:item[key] for key in key2fa}) for item in data_list  
                            if item['counting_en'] >= passenger_count]
